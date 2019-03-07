@@ -7,24 +7,19 @@ namespace AMQP_HeaderExchangeTestPublisher.models
 {
     public class HeadersMessages
     {
-        private const string _UserName = "guest";
-        private const string _Password = "guest";
-        private const string _HostName = "localhost";
         string message;
 
         public void SendMessage()
         {
-            var connectionFactory = new ConnectionFactory()
-            {
-                UserName = _UserName,
-                Password = _Password,
-                HostName = _HostName
-            };
+            var connectionFactory = new MyConnectionFactory();
 
+            //create a connection
             using (var connection = connectionFactory.CreateConnection())
             {
+                //create a channel
                 using (var channel = connection.CreateModel())
                 {
+                    //Declare/Create a queue
                     Dictionary<string, object> queueArgs = new Dictionary<string, object>();
                     queueArgs.Add("category", "animal");
                     queueArgs.Add("type", "mammal");
@@ -75,6 +70,7 @@ namespace AMQP_HeaderExchangeTestPublisher.models
                         Console.WriteLine("[x] message sent: {0}", message);
                         Console.WriteLine("Enter another message...");
                     } while (!message.ToUpper().Contains("STOP"));
+                    connection.Close();
                 }
             }
         }

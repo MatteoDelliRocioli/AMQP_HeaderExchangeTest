@@ -7,7 +7,7 @@ namespace AMQP_HeaderExchangeTestPublisher
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("please enter the first message to send\nType STOP to exit");
+            Console.WriteLine("Please enter the first message to send\nType STOP to exit");
 
             HeadersMessages message = new HeadersMessages();
             message.SendMessage();
